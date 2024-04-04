@@ -48,4 +48,7 @@ public class Station extends BaseEntity {
     @OneToMany(mappedBy = "returnStation")
     private List<Station> returningTrips;
 
+    @Column(name="is_active")
+    private Boolean isActive;
+
 }
