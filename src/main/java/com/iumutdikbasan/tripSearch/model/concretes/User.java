@@ -27,6 +27,9 @@ public class User extends BaseEntity implements UserDetails {
     @SequenceGenerator(name = "User", sequenceName = "USER_ID_SEQ")
     private Long id;
 
+    @Column(name = "IDENTITY_NO")
+    private String identityNo;
+
     @NotBlank
     @Size(min=2, max=100, message = "First name must be at least 2 characters")
     @Column(name = "FIRST_NAME", length = 100, nullable = false)
