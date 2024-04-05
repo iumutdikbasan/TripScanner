@@ -18,7 +18,7 @@ public class SearchRequestDTO {
     @Nullable
     private ZonedDateTime returnDate;
     @NotBlank
-    private String departStation;
+    private String departStationName;
     @NotBlank
-    private String returnStation;
+    private String returnStationName;
 }

@@ -1,6 +1,5 @@
 package com.iumutdikbasan.tripSearch.model.concretes;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.iumutdikbasan.tripSearch.model.abstracts.BaseEntity;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
@@ -45,6 +44,4 @@ public class Trip extends BaseEntity {
     @ManyToOne
     @JoinColumn(name="return_station_id")
     private Station returnStation;
-
-
 }

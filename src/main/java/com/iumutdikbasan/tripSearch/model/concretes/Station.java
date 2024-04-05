@@ -8,7 +8,7 @@ import lombok.*;
 
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
+//@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name="trips")
 @Getter
@@ -44,9 +44,9 @@ public class Station extends BaseEntity {
     private String region;
 
     @OneToMany(mappedBy = "departStation")
-    private List<Station> departingTrips;
+    private List<Trip> departingTrips;
     @OneToMany(mappedBy = "returnStation")
-    private List<Station> returningTrips;
+    private List<Trip> returningTrips;
 
     @Column(name="is_active")
     private Boolean isActive;
