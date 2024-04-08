@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
 @Data
@@ -24,4 +25,7 @@ public class TripUpdateRequestDTO {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssZ")
     @Nullable
     private ZonedDateTime returnDate;
+
+    @NotNull
+    private BigDecimal price;
 }

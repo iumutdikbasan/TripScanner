@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
 @Entity
@@ -31,6 +32,10 @@ public class Trip extends BaseEntity {
     @Column(name="return_date")
     @Nullable
     private ZonedDateTime returnDate;
+
+    @NotNull
+    @Column(name="price")
+    private BigDecimal price;
 
     @NotBlank
     @NotEmpty
