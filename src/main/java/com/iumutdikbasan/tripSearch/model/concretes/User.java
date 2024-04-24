@@ -20,69 +20,22 @@ import java.util.Collection;
 @AllArgsConstructor
 @Entity
 @Table(name = "_user")
-public class User extends BaseEntity implements UserDetails {
+public class User extends BaseEntity{
+
 
     @Id
-    @GeneratedValue(generator = "User" ,strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "User", sequenceName = "USER_ID_SEQ")
-    private Long id;
+    @Column(name="id")
+    private String id;
 
-    @Column(name = "IDENTITY_NO")
-    private String identityNo;
+    @Column(name="username",unique = true)
+    private String username;
 
-    @NotBlank
-    @Size(min=2, max=100, message = "First name must be at least 2 characters")
-    @Column(name = "FIRST_NAME", length = 100, nullable = false)
-    private String firstname;
-
-    @NotBlank
-    @Size(min=2, max=100, message = "Last name must be at least 2 characters")
-    @Column(name = "LAST_NAME", length = 100, nullable = false)
-    private String lastname;
-
-    @Email
-    @Column(name = "EMAIL", length = 50, nullable = false, unique = true)
-    private String email;
-
-    @NotBlank
-    @Size(min=6, max=400, message = "Password must be at least 2 characters")
-    @Column(name = "PASSWORD", length = 400, nullable = false)
+    @Column(name="password")
     private String password;
 
-//    todo : enum role
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-     //TODO:return list.of.role
-        return null;
-    }
+    @Column(name="active")
+    private Boolean active;
 
-    @Override
-    public String getPassword() {
-        return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return null;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
-    }
+    @Column(name="role")
+    private String role;
 }

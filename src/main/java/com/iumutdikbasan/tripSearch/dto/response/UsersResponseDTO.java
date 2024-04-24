@@ -9,9 +9,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UsersResponseDTO {
-    @NotBlank
-    private String email;
-    @NotBlank
+    private String username;
     private String password;
-//    todo:role
 }

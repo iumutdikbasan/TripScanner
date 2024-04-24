@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserDeleteRequestDTO {
     @NotBlank
-    private Long id;
+    private String id;
 }
