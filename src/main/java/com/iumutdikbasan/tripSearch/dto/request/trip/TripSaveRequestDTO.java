@@ -18,19 +18,17 @@ import java.time.ZonedDateTime;
 @NoArgsConstructor
 public class TripSaveRequestDTO {
 
-    @NotNull(message = "We need a departure date to proceed.")
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssZ")
-    private ZonedDateTime departDate;
+    @NotNull
+    private ZonedDateTime departureDateTime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssZ")
     @Nullable
-    private ZonedDateTime returnDate;
+    private ZonedDateTime returnDateTime;
 
-    @NotBlank
-    private String departStation;
-
-    @NotBlank
-    private String returnStation;
+//    @NotBlank
+//    private String departStation;
+//
+//    @NotBlank
+//    private String returnStation;
 
     @NotNull
     private BigDecimal price;

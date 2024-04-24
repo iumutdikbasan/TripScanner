@@ -16,5 +16,5 @@ public interface TripBusiness {
     Result deleteTrip(TripDeleteRequestDTO tripDeleteRequestDTO);
     Result updateTrip(TripUpdateRequestDTO tripUpdateRequestDTO);
     Result searchTrips(SearchRequestDTO searchRequestDTO);
-    //todo
+    void fetchFromMockApi();
 }

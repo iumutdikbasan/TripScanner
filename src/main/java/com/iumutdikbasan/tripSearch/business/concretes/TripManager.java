@@ -16,8 +16,12 @@ import com.iumutdikbasan.tripSearch.model.concretes.Trip;
 import com.iumutdikbasan.tripSearch.repository.TripRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -31,7 +35,9 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class TripManager implements TripBusiness {
 
-    //todo : logger , mockapi
+    Logger logger = LoggerFactory.getLogger(TripManager.class);
+
+    private final String API_ENDPOINT = "https://1abfb21c78654a91952e0775d9f61f6f.api.mockbin.io/";
 
     @Autowired
     private TripRepository tripRepository;
@@ -54,9 +60,9 @@ public class TripManager implements TripBusiness {
 
     @Override
     public Result addTrip(TripSaveRequestDTO tripSaveRequestDTO) {
-        this.tripManagerRules.checkIfDateTimeIsBeforeProblem(tripSaveRequestDTO.getDepartDate());
-        if(tripSaveRequestDTO.getReturnDate() != null){
-            this.tripManagerRules.checkReturnDateTimeValidity(tripSaveRequestDTO.getDepartDate(), tripSaveRequestDTO.getReturnDate());
+        this.tripManagerRules.checkIfDateTimeIsBeforeProblem(tripSaveRequestDTO.getDepartureDateTime());
+        if(tripSaveRequestDTO.getReturnDateTime() != null){
+            this.tripManagerRules.checkReturnDateTimeValidity(tripSaveRequestDTO.getDepartureDateTime(), tripSaveRequestDTO.getReturnDateTime());
         }
         // Rules
         this.tripManagerRules.checkTripRouteValidity(tripSaveRequestDTO.getDepartStationId(),tripSaveRequestDTO.getReturnStationId());
@@ -135,5 +141,29 @@ public class TripManager implements TripBusiness {
         }
         return new SuccessDataResult<>(ResultMessage.SUCCESS.toString());
     }
-    //todo :fetch
+
+    @Override
+    public void fetchFromMockApi() {
+        logger.trace("Data fetched");
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<TripSaveRequestDTO[]> responseEntity = restTemplate.getForEntity(API_ENDPOINT,TripSaveRequestDTO[].class);
+        TripSaveRequestDTO[] createFlightRequestsArray = responseEntity.getBody();
+
+        List<TripSaveRequestDTO> createFlightRequests = new ArrayList<>();
+        if(createFlightRequestsArray != null){
+            for (TripSaveRequestDTO createFlightRequest : createFlightRequestsArray){
+                createFlightRequests.add(this.modelMapperBusiness.forRequest().map(createFlightRequest, TripSaveRequestDTO.class));
+            }
+        }
+        List<Trip> fetchedFlights = new ArrayList<>();
+        for(TripSaveRequestDTO createFlightRequest : createFlightRequests){
+            fetchedFlights.add(this.modelMapperBusiness.forRequest().map(createFlightRequest,Trip.class));
+        }
+        for(Trip trip : fetchedFlights){
+            trip.setId(UUID.randomUUID().toString());
+            this.tripRepository.save(trip);
+        }
+
+    }
+
 }

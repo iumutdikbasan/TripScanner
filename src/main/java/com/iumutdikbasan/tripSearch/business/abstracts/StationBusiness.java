@@ -14,5 +14,4 @@ public interface StationBusiness {
     Result addStation(StationSaveRequestDTO stationSaveRequestDTO);
     Result deleteById(StationDeleteRequestDTO stationDeleteRequestDTO);
     Result updateById(StationUpdateRequestDTO stationUpdateRequestDTO);
-
 }
